@@ -1,0 +1,79 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>Rock, Paper, Scissors</title>
+</head>
+
+<body>
+    <script>
+        const ROCK = "rock";
+        const SCISSORS = "scissors";
+        const PAPER = "paper";
+
+        function playGame(numberOfRounds){
+            console.log("First to win " + numberOfRounds + " round(s) wins the game!");
+            humanScore = 0;
+            computerScore = 0;
+            while (humanScore < numberOfRounds && computerScore < numberOfRounds){
+                humanSelection = getHumanSelection();
+                computerSelection = getComputerSelection();
+                console.log("You: " + humanSelection + "      Computer: " + computerSelection);
+                if (CheckIfHumanWins(humanSelection, computerSelection)){
+                    humanScore ++;
+                }
+                else if (ThereIsATie(humanSelection, computerSelection)){
+                    console.log("Tie!")
+                    continue;
+                }
+                else {
+                    computerScore ++;
+                }
+                displayScore(humanScore, computerScore);
+            }
+            displayWinner(humanScore, computerScore, numberOfRounds);
+        }
+
+
+        function getComputerSelection(){
+            options = [ROCK, SCISSORS, PAPER];
+            randomArrayIndex = Math.floor(Math.random() * 3);
+            return options[randomArrayIndex];
+        }
+
+        function getHumanSelection(){
+            return prompt("Choice: ")
+        }
+
+        function CheckIfHumanWins(humanSelection, computerSelection){
+            humanSelection = humanSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+            if (humanSelection == PAPER && computerSelection == ROCK) return true;
+            if (humanSelection == ROCK && computerSelection == SCISSORS) return true;
+            return humanSelection == SCISSORS && computerSelection == PAPER;
+        }
+
+        function ThereIsATie(humanSelection, computerSelection){
+            return humanSelection == computerSelection;
+        }
+
+        function displayScore(humanScore, computerScore){
+            console.log("You: " + humanScore + "         Computer: " + computerScore);
+        }
+        
+        function displayWinner(humanScore, computerScore, numberOfRounds){
+            if (humanScore == numberOfRounds){
+                console.log("You win!");
+            }
+            else {
+                console.log("Computer wins!");
+            }
+        }
+
+        numberOfRoundsToPlay = prompt("Number of rounds to play:");
+        playGame(Number(numberOfRoundsToPlay));
+    </script>
+
+</body>
+
+</html>
